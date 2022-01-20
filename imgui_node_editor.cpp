@@ -3632,7 +3632,11 @@ bool ed::SelectAction::Process(const Control& control)
     {
         m_EndPoint = ImGui::GetMousePos();
 
+#ifdef min
+        auto topLeft     = ImVec2(min(m_StartPoint.x, m_EndPoint.x), min(m_StartPoint.y, m_EndPoint.y));
+#else
         auto topLeft     = ImVec2(std::min(m_StartPoint.x, m_EndPoint.x), std::min(m_StartPoint.y, m_EndPoint.y));
+#endif
         auto bottomRight = ImVec2(ImMax(m_StartPoint.x, m_EndPoint.x), ImMax(m_StartPoint.y, m_EndPoint.y));
         auto rect        = ImRect(topLeft, bottomRight);
         if (rect.GetWidth() <= 0)
@@ -3703,7 +3707,11 @@ void ed::SelectAction::Draw(ImDrawList* drawList)
 
     drawList->ChannelsSetCurrent(c_BackgroundChannel_SelectionRect);
 
+#ifdef min
+    auto min  = ImVec2(min(m_StartPoint.x, m_EndPoint.x), min(m_StartPoint.y, m_EndPoint.y));
+#else
     auto min  = ImVec2(std::min(m_StartPoint.x, m_EndPoint.x), std::min(m_StartPoint.y, m_EndPoint.y));
+#endif
     auto max  = ImVec2(ImMax(m_StartPoint.x, m_EndPoint.x), ImMax(m_StartPoint.y, m_EndPoint.y));
 
     drawList->AddRectFilled(min, max, fillColor);
@@ -4991,7 +4999,11 @@ bool ed::HintBuilder::Begin(NodeId nodeId)
 
     Editor->Suspend(SuspendFlags::KeepSplitter);
 
+#ifdef min
+    const auto alpha = ImMax(0.0f, min(1.0f, (view.Scale - c_min_zoom) / (c_max_zoom - c_min_zoom)));
+#else
     const auto alpha = ImMax(0.0f, std::min(1.0f, (view.Scale - c_min_zoom) / (c_max_zoom - c_min_zoom)));
+#endif
 
     ImGui::GetWindowDrawList()->ChannelsSetCurrent(c_UserChannel_HintsBackground);
     ImGui::PushClipRect(rect.Min + ImVec2(1, 1), rect.Max - ImVec2(1, 1), false);
