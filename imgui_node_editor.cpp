@@ -3314,7 +3314,7 @@ ed::EditorAction::AcceptResult ed::NavigateAction::Accept(const Control& control
 
     auto& io = ImGui::GetIO();
 
-    if (Editor->CanAcceptUserInput() && ImGui::IsKeyPressed(static_cast<ImGuiKey>(GetKeyIndexForF())) && Editor->AreShortcutsEnabled())
+    if (Editor->CanAcceptUserInput() && ImGui::IsKeyPressed(ImGuiKey_F) && Editor->AreShortcutsEnabled())
     {
         const auto zoomMode = io.KeyShift ? NavigateAction::ZoomMode::WithMargin : NavigateAction::ZoomMode::None;
 
@@ -4361,7 +4361,7 @@ ed::EditorAction::AcceptResult ed::ShortcutAction::Accept(const Control& control
         candidateAction = Copy;
     if (io.KeyCtrl && !io.KeyShift && !io.KeyAlt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_V)))
         candidateAction = Paste;
-    if (io.KeyCtrl && !io.KeyShift && !io.KeyAlt && ImGui::IsKeyPressed(static_cast<ImGuiKey>(GetKeyIndexForD())))
+    if (io.KeyCtrl && !io.KeyShift && !io.KeyAlt && ImGui::IsKeyPressed(ImGuiKey_D))
         candidateAction = Duplicate;
     if (!io.KeyCtrl && !io.KeyShift && !io.KeyAlt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Space)))
         candidateAction = CreateNode;
