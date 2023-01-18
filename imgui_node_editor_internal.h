@@ -35,6 +35,9 @@
 //------------------------------------------------------------------------------
 namespace ax {
 namespace NodeEditor {
+
+enum class FlowDirection;
+
 namespace Detail {
 
 
